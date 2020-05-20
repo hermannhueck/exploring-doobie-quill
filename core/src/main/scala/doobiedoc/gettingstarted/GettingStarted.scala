@@ -1,10 +1,11 @@
 package doobiedoc.gettingstarted
 
+import scala.concurrent.ExecutionContext
+import scala.util.chaining._
+
 import cats.effect.IO
 import doobie._
 import doobie.implicits._
-import scala.concurrent.ExecutionContext
-import scala.util.chaining._
 
 object GettingStarted extends hutil.App {
 

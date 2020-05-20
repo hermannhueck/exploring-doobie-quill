@@ -2,7 +2,6 @@ package hutilexamples
 
 import cats.effect.{ExitCode, IO}
 import cats.syntax.functor._
-
 import fs2.Stream
 
 object Fs2Factorials extends hutil.IOApp {

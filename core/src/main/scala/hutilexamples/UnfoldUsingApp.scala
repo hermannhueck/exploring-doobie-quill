@@ -2,8 +2,8 @@ package hutilexamples
 
 import java.io.{BufferedReader, FileReader}
 
-import scala.util.chaining._
 import scala.util.Using
+import scala.util.chaining._
 
 import hutil.stringformat._
 
