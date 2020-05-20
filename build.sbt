@@ -20,6 +20,7 @@ inThisBuild(
       "org.scala-lang" % "scala-compiler" % scalaVersion.value,
       "org.scala-lang" % "scala-reflect"  % scalaVersion.value,
       shapeless,
+      monixEval,
       fs2Core,
       circeCore,
       http4sCore,
