@@ -1,4 +1,4 @@
-create table Country (code text primary key, name text, population integer);
+create table country (code text primary key, name text, population integer);
 insert into country (code, name, population) values ('FRA', 'France', 67000000);
 insert into country (code, name, population) values ('GER', 'Germany', 83000000);
 select * from country;

@@ -8,7 +8,7 @@ import cats.effect.IO
 import doobie._
 import doobie.implicits._
 
-object GettingStarted extends hutil.App {
+object GettingStartedUsingPostgres extends hutil.App {
 
   implicit val cs = IO.contextShift(ExecutionContext.global)
 
