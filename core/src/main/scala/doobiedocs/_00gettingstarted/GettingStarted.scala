@@ -1,4 +1,4 @@
-package doobiedoc.gettingstarted
+package doobiedocs._00gettingstarted
 
 import scala.concurrent.ExecutionContext
 import scala.util.chaining._
