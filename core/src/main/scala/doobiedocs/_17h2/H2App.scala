@@ -2,9 +2,10 @@ package doobiedocs._17h2
 
 import cats.effect._
 import cats.implicits._
+
 import doobie._
-import doobie.implicits._
 import doobie.h2._
+import doobie.implicits._
 
 object H2App extends hutil.IOApp {
 

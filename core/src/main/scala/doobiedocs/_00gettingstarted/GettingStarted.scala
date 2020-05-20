@@ -4,6 +4,7 @@ import scala.concurrent.ExecutionContext
 import scala.util.chaining._
 
 import cats.effect.IO
+
 import doobie._
 import doobie.implicits._
 
