@@ -1,4 +1,6 @@
-# exploring-doobie+quill
+# Exploring Doobie and Quill for functional database access in Scala
 
-Exploring Doobie and Quill for functional database access
+See also:
+- https://tpolecat.github.io/doobie/
+- https://getquill.io/
 
