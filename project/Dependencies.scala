@@ -19,6 +19,7 @@ object Dependencies {
   lazy val fs2Core            = "co.fs2"                 %% "fs2-core"                % fs2Version
   lazy val fs2Io              = "co.fs2"                 %% "fs2-io"                  % fs2Version
   lazy val fs2ReactiveStreams = "co.fs2"                 %% "fs2-reactive-streams"    % fs2Version
+  lazy val monixExecution     = "io.monix"               %% "monix-execution"         % monixVersion
   lazy val monixEval          = "io.monix"               %% "monix-eval"              % monixVersion
   lazy val circeCore          = "io.circe"               %% "circe-core"              % circeVersion
   lazy val circeParser        = "io.circe"               %% "circe-parser"            % circeVersion
