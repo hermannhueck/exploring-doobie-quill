@@ -1,16 +1,16 @@
-package doobiedocs._03selecting
+package doobiedocs._04selecting
 
 import scala.concurrent.ExecutionContext
 import scala.util.chaining._
 
-import cats.effect.IO
-import doobie._
-import doobie.implicits._
-import cats.effect.Blocker
-
 import hutil.stringformat._
 
-object SelectExamples extends hutil.App {
+import cats.effect.{Blocker, IO}
+
+import doobie._
+import doobie.implicits._
+
+object SelectingData extends hutil.App {
 
   implicit val cs = IO.contextShift(ExecutionContext.global)
 
@@ -103,8 +103,10 @@ object SelectExamples extends hutil.App {
 
   import shapeless.{::, HList, HNil}
 
+  type CountryHList = String :: String :: Int :: Option[Double] :: HNil
+
   sql"select code, name, population, gnp from country"
-    .query[String :: String :: Int :: Option[Double] :: HNil]
+    .query[CountryHList]
     .stream
     .take(5)
     .quick
