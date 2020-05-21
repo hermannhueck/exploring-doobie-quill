@@ -31,7 +31,11 @@ package object stringformat { self =>
   ): String =
     s"$leading${fill * width}$trailing"
 
+  @inline def dash5: String   = dash(5)
   @inline def dash10: String  = dash(10)
+  @inline def dash15: String  = dash(15)
+  @inline def dash20: String  = dash(20)
+  @inline def dash30: String  = dash(30)
   @inline def dash50: String  = dash(50)
   @inline def dash80: String  = dash(80)
   @inline def dash100: String = dash(100)

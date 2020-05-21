@@ -21,7 +21,7 @@ object DDLInsertingAndUpdating extends hutil.App {
 
   // A transactor that gets connections from java.sql.DriverManager and executes blocking operations
   // on an our synchronous EC. See the chapter on connection handling for more info.
-  val xa = Transactor.fromDriverManager[IO](
+  val xa: Transactor.Aux[IO, Unit] = Transactor.fromDriverManager[IO](
     "org.postgresql.Driver",                                    // driver classname
     "jdbc:postgresql:world",                                    // connect URL (driver-specific)
     "postgres",                                                 // user
