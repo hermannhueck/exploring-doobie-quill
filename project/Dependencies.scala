@@ -27,6 +27,7 @@ object Dependencies {
   lazy val circeGenericExtras = "io.circe"               %% "circe-generic-extras"    % circeVersion
   lazy val circeShapes        = "io.circe"               %% "circe-shapes"            % circeVersion
   lazy val circeOptics        = "io.circe"               %% "circe-optics"            % circeVersion
+  lazy val circeJawn          = "io.circe"               %% "circe-jawn"              % circeVersion
   lazy val http4sCore         = "org.http4s"             %% "http4s-core"             % http4sVersion
   lazy val http4sDsl          = "org.http4s"             %% "http4s-dsl"              % http4sVersion
   lazy val http4sClient       = "org.http4s"             %% "http4s-client"           % http4sVersion

@@ -23,6 +23,7 @@ inThisBuild(
       monixEval,
       fs2Core,
       circeCore,
+      circeJawn,
       http4sCore,
       doobieCore,
       doobiePostgres,
