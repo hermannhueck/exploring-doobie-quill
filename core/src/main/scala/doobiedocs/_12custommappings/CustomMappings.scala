@@ -1,13 +1,21 @@
 package doobiedocs._12custommappings
 
+import java.awt.Point
+
 import scala.util.chaining._
 
 import hutil.stringformat._
 
-import cats._, cats.data._, cats.implicits._
-import doobie._, doobie.implicits._
-import io.circe._, io.circe.jawn._, io.circe.syntax._
-import java.awt.Point
+import cats._
+import cats.data._
+import cats.implicits._
+
+import doobie._
+import doobie.implicits._
+
+import io.circe._
+import io.circe.jawn._
+import io.circe.syntax._
 import org.postgresql.util.PGobject
 
 object CustomMappings extends hutil.App {
@@ -162,7 +170,7 @@ object CustomMappings extends hutil.App {
 
   val pgObject2Json: PGobject => Json = a =>
     parse(a.getValue)
-      .leftMap[Json](e => throw e)
+      .leftMap[Json](e => throw e) // scalafix:ok DisableSyntax.throw
       .merge
 
   val json2PGObject: Json => PGobject = a => {
