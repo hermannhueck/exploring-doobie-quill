@@ -1,36 +1,27 @@
 package doobiedocs._04selecting
 
 import scala.concurrent.ExecutionContext
-import scala.util.chaining._
 
 import hutil.stringformat._
 
-import cats.effect.{Blocker, IO}
+import cats.effect.IO
 
 import doobie._
 import doobie.implicits._
 
 object SelectingData extends hutil.App {
 
-  implicit val cs = IO.contextShift(ExecutionContext.global)
-
-  val xa = Transactor.fromDriverManager[IO](
-    "org.postgresql.Driver",                                    // driver classname
-    "jdbc:postgresql:world",                                    // connect URL (driver-specific)
-    "postgres",                                                 // user
-    "",                                                         // password
-    Blocker.liftExecutionContext(ExecutionContexts.synchronous) // just for testing
-  )
+  import doobiedocs._ // imports Transactor xa + implicit ContextShift cs
 
   s"$dash10 Reading Rows into Collections $dash10".magenta.println
 
-  sql"select name from country"
-    .query[String]    // Query0[String]
-    .to[List]         // ConnectionIO[List[String]]
-    .transact(xa)     // IO[List[String]]
-    .unsafeRunSync    // List[String]
-    .take(5)          // List[String]
-    .foreach(println) // Unit
+  sql"select name from country" // Fragment
+    .query[String]              // Query0[String]
+    .to[List]                   // ConnectionIO[List[String]]
+    .transact(xa)               // IO[List[String]]
+    .unsafeRunSync              // List[String]
+    .take(5)                    // List[String]
+    .foreach(println)           // Unit
   // Afghanistan
   // Netherlands
   // Netherlands Antilles
@@ -39,15 +30,15 @@ object SelectingData extends hutil.App {
 
   s"$dash10 Internal Streaming $dash10".magenta.println
 
-  sql"select name from country"
-    .query[String] // Query0[String]
-    .stream        // Stream[ConnectionIO, String]
-    .take(5)       // Stream[ConnectionIO, String]
-    .compile
-    .toList           // ConnectionIO[List[String]]
-    .transact(xa)     // IO[List[String]]
-    .unsafeRunSync    // List[String]
-    .foreach(println) // Unit
+  sql"select name from country" // Fragment
+    .query[String]              // Query0[String]
+    .stream                     // Stream[ConnectionIO, String]
+    .take(5)                    // Stream[ConnectionIO, String]
+    .compile                    // Stream.CompileOps[ConnectionIO, ConnectionIO, String]
+    .toList                     // ConnectionIO[List[String]]
+    .transact(xa)               // IO[List[String]]
+    .unsafeRunSync              // List[String]
+    .foreach(println)           // Unit
   // Afghanistan
   // Netherlands
   // Netherlands Antilles
@@ -186,12 +177,11 @@ object SelectingData extends hutil.App {
 
   s"$dash10 Final Streaming $dash10".magenta.println
 
-  val s: Stream[IO, Country2] = {
+  val s: Stream[IO, Country2] =
     sql"select name, population, gnp from country"
       .query[Country2] // Query0[Country2]
       .stream          // Stream[ConnectionIO, Country2]
       .transact(xa)    // Stream[IO, Country2]
-  }
   // s: Stream[IO, Country2] = Stream(..)
 
   s.take(5)

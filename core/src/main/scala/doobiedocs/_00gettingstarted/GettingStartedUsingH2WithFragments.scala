@@ -6,7 +6,6 @@ import scala.util.chaining._
 import cats.effect.IO
 
 import doobie._
-import doobie.h2._
 import doobie.implicits._
 
 object GettingStartedUsingH2WithFragments extends hutil.App {
@@ -30,50 +29,51 @@ object GettingStartedUsingH2WithFragments extends hutil.App {
   }
 
   val tableFragment      = Fragment.const(Country.prefix)
-  val colFragments       = Country.columnNames.map(Fragment.const(_))
-  val codeFragment       = colFragments(0)
-  val nameFragment       = colFragments(1)
-  val populationFragment = colFragments(2)
+  val tableFragment0     = Fragment.const0(Country.prefix)
+  val columnFragments    = Country.columnNames.map(Fragment.const(_))
+  val codeFragment       = columnFragments(0)
+  val nameFragment       = columnFragments(1)
+  val populationFragment = columnFragments(2)
 
   val dropTableIfExists: ConnectionIO[Int] =
-    sql"drop table if exists country"
+    (fr"drop table if exists" ++ tableFragment0)
       .update
       .run
 
   val createTable: ConnectionIO[Int] =
     (fr"create table" ++ tableFragment ++
-      fr"(" ++ codeFragment ++ fr"text," ++ nameFragment ++ fr"text," ++ populationFragment ++ fr"integer)")
+      fr"(" ++ codeFragment ++ fr"text," ++ nameFragment ++ fr"text," ++ populationFragment ++ fr0"integer)")
       .update
       .run
 
   def insert(c: Country): ConnectionIO[Int] =
     (fr"insert into " ++ tableFragment ++
       fr" (" ++ codeFragment ++ fr"," ++ nameFragment ++ fr"," ++ populationFragment ++
-      fr") values (${c.code}, ${c.name}, ${c.population})")
+      fr0") values (${c.code}, ${c.name}, ${c.population})")
       .update
       .run
 
   def find(name: String): ConnectionIO[Option[Country]] =
     (fr"select" ++ codeFragment ++ fr"," ++ nameFragment ++ fr"," ++ populationFragment ++
-      fr" from" ++ tableFragment ++ fr" where" ++ nameFragment ++ fr" = $name")
+      fr" from" ++ tableFragment ++ fr" where" ++ nameFragment ++ fr0" = $name")
       .query[Country]
       .option
 
   val deleteAll: ConnectionIO[Int] =
-    (fr"delete from" ++ tableFragment)
+    (fr"delete from" ++ tableFragment0)
       .update
       .run
 
   val program: ConnectionIO[Option[Country]] =
     for {
-      _      <- dropTableIfExists
-      _      <- createTable
-      _      <- insert(Country("FRA", "France", 67000000L))
-      _      <- insert(Country("Ger", "Germany", 83000000L))
-      result <- find("France")
-      _      <- deleteAll
-      _      <- dropTableIfExists
-    } yield result
+      _     <- dropTableIfExists
+      _     <- createTable
+      _     <- insert(Country("FRA", "France", 67000000L))
+      _     <- insert(Country("Ger", "Germany", 83000000L))
+      found <- find("France")
+      _     <- deleteAll
+      _     <- dropTableIfExists
+    } yield found
 
   program
     .transact(xa)
