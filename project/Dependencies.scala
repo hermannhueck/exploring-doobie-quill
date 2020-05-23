@@ -41,6 +41,8 @@ object Dependencies {
   lazy val doobieH2           = "org.tpolecat"           %% "doobie-h2"               % doobieVersion
   lazy val doobieFree         = "org.tpolecat"           %% "doobie-free"             % doobieVersion
   lazy val doobieQuill        = "org.tpolecat"           %% "doobie-quill"            % doobieVersion
+  lazy val doobieSpecs2       = "org.tpolecat"           %% "doobie-specs2"           % doobieVersion
+  lazy val doobieScalatest    = "org.tpolecat"           %% "doobie-scalatest"        % doobieVersion
   lazy val quillCore          = "io.getquill"            %% "quill-core"              % quillVersion
   lazy val quillSql           = "io.getquill"            %% "quill-sql"               % quillVersion
   lazy val quillJdbc          = "io.getquill"            %% "quill-jdbc"              % quillVersion

@@ -29,6 +29,8 @@ inThisBuild(
       doobiePostgres,
       doobieH2,
       doobieQuill,
+      doobieSpecs2,
+      doobieScalatest,
       quillCore,
       zio,
       munit,
