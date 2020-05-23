@@ -28,6 +28,7 @@ inThisBuild(
       doobieCore,
       doobiePostgres,
       doobieH2,
+      doobieHikari,
       doobieQuill,
       doobieSpecs2,
       doobieScalatest,

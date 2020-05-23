@@ -39,6 +39,7 @@ object Dependencies {
   lazy val doobieCore         = "org.tpolecat"           %% "doobie-core"             % doobieVersion
   lazy val doobiePostgres     = "org.tpolecat"           %% "doobie-postgres"         % doobieVersion
   lazy val doobieH2           = "org.tpolecat"           %% "doobie-h2"               % doobieVersion
+  lazy val doobieHikari       = "org.tpolecat"           %% "doobie-hikari"           % doobieVersion
   lazy val doobieFree         = "org.tpolecat"           %% "doobie-free"             % doobieVersion
   lazy val doobieQuill        = "org.tpolecat"           %% "doobie-quill"            % doobieVersion
   lazy val doobieSpecs2       = "org.tpolecat"           %% "doobie-specs2"           % doobieVersion
