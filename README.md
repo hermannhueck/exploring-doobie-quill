@@ -3,8 +3,3 @@
 See also:
 - https://tpolecat.github.io/doobie/
 - https://getquill.io/
-
-See:
-- https://tpolecat.github.io/doobie/
-- https://getquill.io/
-
