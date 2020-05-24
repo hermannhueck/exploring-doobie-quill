@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 14:
+// https://tpolecat.github.io/doobie/docs/14-Managing-Connections.html
+//
 package doobiedocs._14managingconnections
 
 import hutil.stringformat._

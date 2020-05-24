@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 04:
+// https://tpolecat.github.io/doobie/docs/04-Selecting.html
+//
 package doobiedocs._04selecting
 
 import scala.concurrent.ExecutionContext

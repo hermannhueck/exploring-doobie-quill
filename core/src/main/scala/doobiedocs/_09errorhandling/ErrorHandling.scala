@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 09:
+// https://tpolecat.github.io/doobie/docs/09-Error-Handling.html
+//
 package doobiedocs._09errorhandling
 
 import scala.util.chaining._

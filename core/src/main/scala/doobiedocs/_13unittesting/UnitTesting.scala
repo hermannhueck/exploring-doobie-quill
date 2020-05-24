@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 13:
+// https://tpolecat.github.io/doobie/docs/13-Unit-Testing.html
+//
 package doobiedocs._13unittesting
 
 import hutil.stringformat._

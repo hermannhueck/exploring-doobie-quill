@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 05:
+// https://tpolecat.github.io/doobie/docs/05-Parameterized.html
+//
 package doobiedocs._05parameterized
 
 import hutil.stringformat._

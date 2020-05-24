@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 12:
+// https://tpolecat.github.io/doobie/docs/12-Custom-Mappings.html
+//
 package doobiedocs._12custommappings
 
 import java.awt.Point

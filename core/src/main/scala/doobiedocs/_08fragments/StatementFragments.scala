@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 08:
+// https://tpolecat.github.io/doobie/docs/08-Fragments.html
+//
 package doobiedocs._08fragments
 
 import scala.util.chaining._

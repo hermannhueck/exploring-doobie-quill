@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 03:
+// https://tpolecat.github.io/doobie/docs/03-Connecting.html
+//
 package doobiedocs._03connecting
 
 import scala.concurrent.ExecutionContext

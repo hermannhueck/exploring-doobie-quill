@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 07:
+// https://tpolecat.github.io/doobie/docs/07-Updating.html
+//
 package doobiedocs._07updating
 
 import scala.util.chaining._

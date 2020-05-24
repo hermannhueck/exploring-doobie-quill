@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 11:
+// https://tpolecat.github.io/doobie/docs/11-Arrays.html
+//
 package doobiedocs._11arrays
 
 import hutil.stringformat._

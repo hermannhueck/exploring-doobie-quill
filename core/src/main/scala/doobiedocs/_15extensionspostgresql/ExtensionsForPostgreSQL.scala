@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 15:
+// https://tpolecat.github.io/doobie/docs/15-Extensions-PostgreSQL.html
+//
 package doobiedocs._15extensionspostgresql
 
 import scala.util.chaining._

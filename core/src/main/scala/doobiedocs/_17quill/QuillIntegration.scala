@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 17:
+// https://tpolecat.github.io/doobie/docs/17-Quill.html
+//
 package doobiedocs._17quill
 
 import scala.util.chaining._

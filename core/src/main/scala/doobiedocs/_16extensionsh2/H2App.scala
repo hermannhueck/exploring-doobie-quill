@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 16:
+// https://tpolecat.github.io/doobie/docs/16-Extensions-H2.html
+//
 package doobiedocs._16extensionsh2
 
 import cats.effect.{Blocker, ExitCode, IO, Resource}

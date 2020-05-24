@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 10:
+// https://tpolecat.github.io/doobie/docs/10-Logging.html
+//
 package doobiedocs._10logging
 
 import hutil.stringformat._

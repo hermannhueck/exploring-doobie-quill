@@ -1,3 +1,6 @@
+// See 'book of doobie', chapter 06:
+// https://tpolecat.github.io/doobie/docs/06-Checking.html
+//
 package doobiedocs._06checking
 
 import hutil.stringformat._
