@@ -4,9 +4,8 @@ import scala.util.chaining._
 
 import hutil.stringformat._
 
-import cats._
-import cats.data._
-import cats.implicits._
+import cats.syntax.applicative._
+import cats.syntax.applicativeError._
 
 import doobie._
 import doobie.implicits._
@@ -33,13 +32,18 @@ object ErrorHandling extends hutil.App {
 
   s"$dash10 Example: Unique Constraint Violation $dash10".magenta.println
 
-  List(
+  import cats.syntax.traverse._
+  import cats.instances.all._
+  import cats.effect.IO
+
+  val io: IO[List[Unit]] = List(
     sql"""DROP TABLE IF EXISTS person""",
     sql"""CREATE TABLE person (
           id    SERIAL,
           name  VARCHAR NOT NULL UNIQUE
         )"""
-  ).traverse(_.update.quick).void.unsafeRunSync
+  ).traverse(frag => frag.update.quick)
+  io.void.unsafeRunSync
   //   0 row(s) updated
   //   0 row(s) updated
 

@@ -4,10 +4,6 @@ import scala.util.chaining._
 
 import hutil.stringformat._
 
-import cats._
-import cats.data._
-import cats.implicits._
-
 import doobie._
 import doobie.implicits._
 
@@ -29,6 +25,9 @@ object ExtensionsForPostgreSQL extends hutil.App {
   s"$dash10 Other Nonstandard Types $dash10".magenta.println
 
   s"$dash10 Extended Error Handling $dash10".magenta.println
+
+  import cats.syntax.applicative._      // pure
+  import cats.syntax.applicativeError._ // attempt
 
   """val p = sql"oops".query[String].unique // this won't work""".yellow.println
   val p = sql"oops".query[String].unique // this won't work

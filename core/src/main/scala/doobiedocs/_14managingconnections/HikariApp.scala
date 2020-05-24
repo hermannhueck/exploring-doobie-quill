@@ -2,9 +2,10 @@ package doobiedocs._14managingconnections
 
 import cats.effect._
 import cats.implicits._
+
 import doobie._
-import doobie.implicits._
 import doobie.hikari._
+import doobie.implicits._
 
 object HikariApp extends hutil.IOApp {
 

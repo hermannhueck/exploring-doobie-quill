@@ -4,8 +4,6 @@ import scala.util.chaining._
 
 import hutil.stringformat._
 
-import cats._
-import cats.data._
 import cats.implicits._
 
 import doobie._

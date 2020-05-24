@@ -6,6 +6,7 @@ import cats._
 import cats.data._
 import cats.effect._
 import cats.implicits._
+
 import doobie._
 import doobie.implicits._
 

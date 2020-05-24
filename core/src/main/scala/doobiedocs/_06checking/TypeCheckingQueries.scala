@@ -2,10 +2,6 @@ package doobiedocs._06checking
 
 import hutil.stringformat._
 
-import cats._
-import cats.data._
-import cats.implicits._
-
 import doobie._
 import doobie.implicits._
 

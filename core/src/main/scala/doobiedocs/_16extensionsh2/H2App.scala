@@ -1,7 +1,6 @@
 package doobiedocs._16extensionsh2
 
-import cats.effect._
-import cats.implicits._
+import cats.effect.{Blocker, ExitCode, IO, Resource}
 
 import doobie._
 import doobie.h2._

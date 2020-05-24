@@ -6,9 +6,10 @@ import scala.util.chaining._
 
 import hutil.stringformat._
 
-import cats._
-import cats.data._
-import cats.implicits._
+import cats.Show
+import cats.data.NonEmptyList
+import cats.syntax.show._
+import cats.syntax.either._
 
 import doobie._
 import doobie.implicits._

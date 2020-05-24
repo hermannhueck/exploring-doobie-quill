@@ -2,9 +2,7 @@ package doobiedocs._05parameterized
 
 import hutil.stringformat._
 
-import cats._
-import cats.data._
-import cats.implicits._
+import cats.data.NonEmptyList
 
 import doobie._
 import doobie.implicits._
