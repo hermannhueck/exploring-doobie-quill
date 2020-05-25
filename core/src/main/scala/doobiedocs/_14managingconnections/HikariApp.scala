@@ -3,8 +3,7 @@
 //
 package doobiedocs._14managingconnections
 
-import cats.effect._
-import cats.implicits._
+import cats.effect.{Blocker, ExitCode, IO, Resource}
 
 import doobie._
 import doobie.hikari._

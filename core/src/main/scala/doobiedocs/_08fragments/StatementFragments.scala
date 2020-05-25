@@ -7,8 +7,6 @@ import scala.util.chaining._
 
 import hutil.stringformat._
 
-import cats.implicits._
-
 import doobie._
 import doobie.implicits._
 
@@ -53,6 +51,9 @@ object StatementFragments extends hutil.App {
 
   s"$dash10 Whitespace handling $dash10".magenta.println
 
+  import cats.instances.list._  // .intercalate
+  import cats.syntax.foldable._ // .intercalate
+
   fr"IN (" ++ List(1, 2, 3).map(n => fr"$n").intercalate(fr",") ++ fr")" pipe println
   // res3: Fragment = Fragment("IN ( ? , ? , ? ) ")
 
@@ -71,6 +72,8 @@ object StatementFragments extends hutil.App {
 
   // Construct a Query0 with some optional filter conditions and a configurable LIMIT.
   def select(name: Option[String], pop: Option[Int], codes: List[String], limit: Long): Query0[Info] = {
+
+    import cats.syntax.list._ // .toNel
 
     // Three Option[Fragment] filter conditions.
     val f1: Option[Fragment] = name.map(s => fr"name LIKE $s")

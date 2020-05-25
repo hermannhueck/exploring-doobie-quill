@@ -36,7 +36,7 @@ object ErrorHandling extends hutil.App {
   s"$dash10 Example: Unique Constraint Violation $dash10".magenta.println
 
   import cats.syntax.traverse._
-  import cats.instances.all._
+  import cats.instances.list._
   import cats.effect.IO
 
   val io: IO[List[Unit]] = List(
