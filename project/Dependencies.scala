@@ -10,7 +10,7 @@ object Dependencies {
   lazy val http4sVersion           = "0.21.4"
   lazy val doobieVersion           = "0.9.0"
   lazy val quillVersion            = "3.5.1"
-  lazy val zioVersion              = "1.0.0-RC19-2"
+  lazy val zioVersion              = "1.0.0-RC20"
   lazy val munitVersion            = "0.7.7"
   lazy val scalaCheckVersion       = "1.14.3"
 
