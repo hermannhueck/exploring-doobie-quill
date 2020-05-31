@@ -15,6 +15,7 @@ object ManagingConnections extends hutil.App {
   s"$dash10 Using the JDBC DriverManager $dash10".magenta.println
 
   object TransactorFromDriverManager {
+
     import doobie.util.ExecutionContexts
 
     // We need a ContextShift[IO] before we can construct a Transactor[IO]. The passed ExecutionContext
@@ -35,6 +36,7 @@ object ManagingConnections extends hutil.App {
   s"$dash10 Using a HikariCP Connection Pool $dash10".magenta.println
 
   object TransactorFromHikariConnectionPool {
+
     import doobie.hikari._
 
     implicit val cs = IO.contextShift(ExecutionContexts.synchronous)
@@ -62,7 +64,10 @@ object ManagingConnections extends hutil.App {
 
     import javax.sql.DataSource
 
+    //implicit val cs = IO.contextShift(ExecutionContexts.synchronous)
+
     // Resource yielding a DataSourceTransactor[IO] wrapping the given `DataSource`
+    // @scala.annotation.nowarn("cat=unused-params")
     def transactor(ds: DataSource)(implicit ev: ContextShift[IO]): Resource[IO, DataSourceTransactor[IO]] =
       for {
         ce <- ExecutionContexts.fixedThreadPool[IO](32) // our connect EC
@@ -77,6 +82,7 @@ object ManagingConnections extends hutil.App {
     import java.sql.Connection
 
     // Resource yielding a Transactor[IO] wrapping the given `Connection`
+    // @scala.annotation.nowarn("cat=unused-params")
     def transactor(c: Connection)(implicit ev: ContextShift[IO]): Resource[IO, Transactor[IO]] =
       Blocker[IO].map { b => Transactor.fromConnection[IO](c, b) }
   }
