@@ -64,4 +64,40 @@ object Dependencies {
   lazy val betterMonadicForPlugin = compilerPlugin(
     compilerPlugin("com.olegpy" %% "better-monadic-for" % betterMonadicForVersion)
   )
+
+  def scalaCompiler(scalaVersion: String) = "org.scala-lang" % "scala-compiler" % scalaVersion
+  def scalaReflect(scalaVersion: String)  = "org.scala-lang" % "scala-reflect"  % scalaVersion
+
+  def coreDependencies(scalaVersion: String)  =
+    Seq(
+      scalaCompiler(scalaVersion),
+      scalaReflect(scalaVersion),
+      shapeless,
+      monixEval,
+      fs2Core,
+      circeCore,
+      circeJawn,
+      http4sCore,
+      doobieCore,
+      doobiePostgres,
+      doobieH2,
+      doobieHikari,
+      doobieQuill,
+      doobieSpecs2,
+      doobieScalatest,
+      quillCore,
+      zio,
+      munit,
+      kindProjectorPlugin,
+      betterMonadicForPlugin
+    ) ++ Seq(
+      scalaCheck
+    ).map(_ % Test)
+
+  def hutilDependencies(scalaVersion: String) =
+    Seq(
+      scalaCompiler(scalaVersion),
+      scalaReflect(scalaVersion),
+      catsEffect
+    )
 }

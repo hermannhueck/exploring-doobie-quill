@@ -4,38 +4,7 @@ val projectVersion     = "0.1.0"
 
 val scala213 = "2.13.2"
 
-val scalaCompiler = "org.scala-lang" % "scala-compiler" % scala213
-val scalaReflect  = "org.scala-lang" % "scala-reflect"  % scala213
-
-import Dependencies._
-
-lazy val coreLibraryDependencies =
-  Seq(
-    scalaCompiler,
-    scalaReflect,
-    shapeless,
-    monixEval,
-    fs2Core,
-    circeCore,
-    circeJawn,
-    http4sCore,
-    doobieCore,
-    doobiePostgres,
-    doobieH2,
-    doobieHikari,
-    doobieQuill,
-    doobieSpecs2,
-    doobieScalatest,
-    quillCore,
-    zio,
-    munit,
-    kindProjectorPlugin,
-    betterMonadicForPlugin
-  ) ++ Seq(
-    scalaCheck
-  ).map(_ % Test)
-
-lazy val myInitialCommands       =
+lazy val myInitialCommands =
   s"""|
      |import scala.util.chaining._
      |import fs2._, cats.effect._, cats.effect.implicits._, cats.implicits._
@@ -78,7 +47,7 @@ lazy val core = (project in file("core"))
   .settings(
     name := projectName,
     description := projectDescription,
-    libraryDependencies ++= coreLibraryDependencies
+    libraryDependencies ++= Dependencies.coreDependencies(scalaVersion.value)
   )
 
 lazy val hutil = (project in file("hutil"))
@@ -86,11 +55,7 @@ lazy val hutil = (project in file("hutil"))
   .settings(
     name := "hutil",
     description := "Hermann's Utilities",
-    libraryDependencies ++= Seq(
-      scalaCompiler,
-      scalaReflect,
-      catsEffect
-    )
+    libraryDependencies ++= Dependencies.hutilDependencies(scalaVersion.value)
   )
 
 // GraphBuddy support
