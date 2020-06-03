@@ -4,17 +4,6 @@ val projectVersion     = "0.1.0"
 
 val scala213 = "2.13.2"
 
-lazy val myInitialCommands =
-  s"""|
-     |import scala.util.chaining._
-     |import fs2._, cats.effect._, cats.effect.implicits._, cats.implicits._
-     |import scala.concurrent.ExecutionContext.Implicits.global
-     |import scala.concurrent.duration._
-     |implicit val contextShiftIO: ContextShift[IO] = IO.contextShift(global)
-     |implicit val timerIO: Timer[IO] = IO.timer(global)
-     |println
-     |""".stripMargin
-
 lazy val commonSettings =
   Seq(
     version := projectVersion,
@@ -29,7 +18,16 @@ lazy val commonSettings =
     Test / parallelExecution := false,
     Test / testOptions += Tests.Argument(TestFrameworks.ScalaCheck, "-s", "100"), // -s = -minSuccessfulTests
     testFrameworks += new TestFramework("munit.Framework"),
-    initialCommands := myInitialCommands
+    initialCommands :=
+      s"""|
+         |import scala.util.chaining._
+         |import fs2._, cats.effect._, cats.effect.implicits._, cats.implicits._
+         |import scala.concurrent.ExecutionContext.Implicits.global
+         |import scala.concurrent.duration._
+         |implicit val contextShiftIO: ContextShift[IO] = IO.contextShift(global)
+         |implicit val timerIO: Timer[IO] = IO.timer(global)
+         |println
+         |""".stripMargin
   )
 
 lazy val root = (project in file("."))
