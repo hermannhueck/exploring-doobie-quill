@@ -8,8 +8,9 @@ import io.getquill._
 
 object CompileTimeQuotations extends hutil.App {
 
-  val ctx = new SqlMirrorContext(PostgresDialect, SnakeCase)
+  import quilldocs._
 
+  val ctx = new SqlMirrorContext(PostgresDialect, SnakeCase)
   import ctx._
 
   case class Circle(radius: Float)
@@ -20,22 +21,16 @@ object CompileTimeQuotations extends hutil.App {
   val q1: Quoted[Query[Circle]] = quote {
     query[Circle].filter(c => c.radius > 10)
   }
-
-  ctx
-    .run(q1) // Dynamic query q1
-    .pipe(println)
+  printAstAndStatement(q1.ast, ctx.run(q1).string) // Dynamic query q1 due to return type ascription
 
   // Avoid type widening (Quoted[Query[Circle]]), or else the quotation will be dynamic.
   val q2 = quote {
     query[Circle].filter(c => c.radius > 10)
   }
-
-  ctx
-    .run(q2) // Static query q2 (without type ascription)
-    .pipe(println)
+  printAstAndStatement(q2.ast, ctx.run(q2).string) // Static query q2 (without type ascription)
 
   s"$dash10 Inline Queries $dash10".magenta.println
 
-  ctx.run(query[Circle].map(_.radius))
+  printStatement(ctx.run(query[Circle].map(_.radius)).string)
   // SELECT r.radius FROM Circle r
 }
