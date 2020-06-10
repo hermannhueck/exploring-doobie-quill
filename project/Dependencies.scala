@@ -5,14 +5,14 @@ object Dependencies {
   lazy val collectionCompatVersion = "2.1.6"
   lazy val shapelessVersion        = "2.3.3"
   lazy val catsEffectVersion       = "2.1.3"
-  lazy val fs2Version              = "2.3.0"
-  lazy val monixVersion            = "3.2.1"
+  lazy val fs2Version              = "2.4.1"
+  lazy val monixVersion            = "3.2.2"
   lazy val circeVersion            = "0.13.0"
   lazy val http4sVersion           = "0.21.4"
   lazy val doobieVersion           = "0.9.0"
   lazy val quillVersion            = "3.5.1"
   lazy val zioVersion              = "1.0.0-RC20"
-  lazy val munitVersion            = "0.7.7"
+  lazy val munitVersion            = "0.7.8"
   lazy val scalaCheckVersion       = "1.14.3"
 
   lazy val collectionCompat   = "org.scala-lang.modules" %% "scala-collection-compat" % collectionCompatVersion
