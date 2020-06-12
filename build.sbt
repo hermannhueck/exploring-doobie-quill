@@ -31,7 +31,7 @@ lazy val commonSettings =
   )
 
 lazy val root = (project in file("."))
-  .aggregate(core)
+  .aggregate(core, handsonscala)
   .settings(commonSettings)
   .settings(
     name := "root",
@@ -46,6 +46,20 @@ lazy val core = (project in file("core"))
     name := projectName,
     description := projectDescription,
     libraryDependencies ++= Dependencies.coreDependencies(scalaVersion.value)
+  )
+
+lazy val handsonscala = (project in file("handsonscala"))
+  .dependsOn(hutil)
+  .settings(commonSettings)
+  .settings(
+    name := "handsonscala-quill",
+    description := "Quill examples from Li Haoyi's book 'handsonscala'",
+    fork := true,
+    libraryDependencies ++= Seq(
+      Dependencies.quillJdbc,
+      "org.postgresql"           % "postgresql"      % "42.2.14",
+      "com.opentable.components" % "otj-pg-embedded" % "0.13.3"
+    )
   )
 
 lazy val hutil = (project in file("hutil"))
