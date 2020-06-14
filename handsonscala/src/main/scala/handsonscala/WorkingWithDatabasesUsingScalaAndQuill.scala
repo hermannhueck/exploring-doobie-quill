@@ -169,6 +169,8 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
 
   s"$dash10 Joins $dash10".magenta.println
 
+  // applicative join
+  // convenient for joining just 2 tables
   val qCities13              = quote {
     query[City]
       .join(query[Country])
@@ -180,6 +182,33 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities13.ast, ctx.translate(qCities13))
   val cities13: List[String] = ctx.run(qCities13)
   cities13 foreach println
+  println
+
+  // implicit join
+  // only supports inner joins
+  @annotation.nowarn("cat=unused-params")
+  val qCities13a              = quote {
+    (for {
+      city    <- query[City]
+      country <- query[Country] if (city.countryCode == country.code)
+    } yield city.name).take(5)
+  }
+  printAstAndStatement(qCities13a.ast, ctx.translate(qCities13a))
+  val cities13a: List[String] = ctx.run(qCities13a)
+  cities13a foreach println
+  println
+
+  // flat join
+  // allows for-comprehensions and also supports left, right and full joins
+  val qCities13b              = quote {
+    (for {
+      city <- query[City]
+      _    <- query[Country].join(country => city.countryCode == country.code)
+    } yield city.name).take(5)
+  }
+  printAstAndStatement(qCities13b.ast, ctx.translate(qCities13b))
+  val cities13b: List[String] = ctx.run(qCities13b)
+  cities13b foreach println
   println
 
   s"$dash10 Inserts $dash10".magenta.println
