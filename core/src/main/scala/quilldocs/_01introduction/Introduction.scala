@@ -15,7 +15,7 @@ object Introduction extends hutil.App {
     quote(3.14159)
   pi.ast pipe println
   ctx.run(pi).string pipe println
-  println
+  println()
 
   case class Circle(radius: Float)
 
@@ -25,7 +25,7 @@ object Introduction extends hutil.App {
   }
   areas1.ast pipe println
   ctx.run(areas1).string pipe println
-  println
+  println()
 
   // val area: Quoted[Circle => Double]
   val area = quote { (c: Circle) =>
@@ -35,7 +35,7 @@ object Introduction extends hutil.App {
     }
   }
   area.ast pipe println
-  println
+  println()
 
   // val areas2: Quoted[EntityQuery[Double]]
   val areas2 = quote {
@@ -43,14 +43,14 @@ object Introduction extends hutil.App {
   }
   areas2.ast pipe println
   ctx.run(areas2).string pipe println
-  println
+  println()
 
   val areasNormalized = quote {
     query[Circle].map(c => 3.14159 * c.radius * c.radius)
   }
   areasNormalized.ast pipe println
   ctx.run(areasNormalized).string pipe println
-  println
+  println()
 
   // def existsAny[T]: Quoted[Query[T] => ((T => Boolean) => Boolean)]
   def existsAny[T] =
@@ -58,7 +58,7 @@ object Introduction extends hutil.App {
       q.filter(p(_)).nonEmpty
     }
   existsAny.ast pipe println
-  println
+  println()
 
   // val q: Quoted[EntityQuery[Circle]]
   val q = quote {
@@ -66,5 +66,5 @@ object Introduction extends hutil.App {
   }
   q.ast pipe println
   ctx.run(q).string pipe println
-  println
+  println()
 }

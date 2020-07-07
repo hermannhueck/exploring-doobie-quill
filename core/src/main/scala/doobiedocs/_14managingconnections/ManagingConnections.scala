@@ -8,11 +8,10 @@ import hutil.stringformat._
 import cats.effect.{Blocker, ContextShift, IO, Resource}
 
 import doobie._
-import doobie.implicits._
 
 object ManagingConnections extends hutil.App {
 
-  s"$dash10 Using the JDBC DriverManager $dash10".magenta.println
+  s"$dash10 Using the JDBC DriverManager $dash10".magenta.println()
 
   object TransactorFromDriverManager {
 
@@ -33,7 +32,7 @@ object ManagingConnections extends hutil.App {
     )
   }
 
-  s"$dash10 Using a HikariCP Connection Pool $dash10".magenta.println
+  s"$dash10 Using a HikariCP Connection Pool $dash10".magenta.println()
 
   object TransactorFromHikariConnectionPool {
 
@@ -46,19 +45,19 @@ object ManagingConnections extends hutil.App {
     val transactor: Resource[IO, HikariTransactor[IO]] =
       for {
         ce <- ExecutionContexts.fixedThreadPool[IO](32) // our connect EC
-        be <- Blocker[IO]                               // our blocking EC
+        be <- Blocker[IO] // our blocking EC
         xa <- HikariTransactor.newHikariTransactor[IO](
-               "org.h2.Driver",                      // driver classname
-               "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", // connect URL
-               "sa",                                 // username
-               "",                                   // password
-               ce,                                   // await connection here
-               be                                    // execute JDBC operations here
-             )
+                "org.h2.Driver",                      // driver classname
+                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", // connect URL
+                "sa",                                 // username
+                "",                                   // password
+                ce,                                   // await connection here
+                be                                    // execute JDBC operations here
+              )
       } yield xa
   }
 
-  s"$dash10 Using an existing DataSource $dash10".magenta.println
+  s"$dash10 Using an existing DataSource $dash10".magenta.println()
 
   object TransactorFromDataSource {
 
@@ -71,11 +70,11 @@ object ManagingConnections extends hutil.App {
     def transactor(ds: DataSource)(implicit ev: ContextShift[IO]): Resource[IO, DataSourceTransactor[IO]] =
       for {
         ce <- ExecutionContexts.fixedThreadPool[IO](32) // our connect EC
-        be <- Blocker[IO]                               // our blocking EC
+        be <- Blocker[IO] // our blocking EC
       } yield Transactor.fromDataSource[IO](ds, ce, be)
   }
 
-  s"$dash10 Using an Existing JDBC Connection $dash10".magenta.println
+  s"$dash10 Using an Existing JDBC Connection $dash10".magenta.println()
 
   object TransactorFromJdbcConnection {
 
@@ -87,7 +86,7 @@ object ManagingConnections extends hutil.App {
       Blocker[IO].map { b => Transactor.fromConnection[IO](c, b) }
   }
 
-  s"$dash10 Customizing Transactors $dash10".magenta.println
+  s"$dash10 Customizing Transactors $dash10".magenta.println()
 
   object CustomizingTransactors {
 

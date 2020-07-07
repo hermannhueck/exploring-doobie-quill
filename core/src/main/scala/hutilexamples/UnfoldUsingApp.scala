@@ -14,11 +14,11 @@ object UnfoldUsingApp extends hutil.App {
     case s => Some(((s * s), (s - 1)))
   }
 
-  s"$dash10 List.unfold".magenta.println
+  s"$dash10 List.unfold".magenta.println()
 
   List.unfold(10)(unfoldFunction) pipe println
 
-  s"$dash10 Iterator.unfold + Using".magenta.println
+  s"$dash10 Iterator.unfold + Using".magenta.println()
 
   def bufferedReader(fileName: String): BufferedReader =
     new BufferedReader(new FileReader(fileName))

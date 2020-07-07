@@ -1,7 +1,5 @@
 package quilldocs._04schema
 
-import scala.util.chaining._
-
 import hutil.stringformat._
 
 import io.getquill._
@@ -13,7 +11,7 @@ object Ex04EmbeddedCaseClasses extends hutil.App {
   val ctx = new SqlMirrorContext(PostgresDialect, SnakeCase)
   import ctx._
 
-  s"$dash10 Embedded case classes $dash10".magenta.println
+  s"$dash10 Embedded case classes $dash10".magenta.println()
 
   case class Contact(phone: String, address: String) extends Embedded
   case class Person(id: Int, name: String, contact: Contact)

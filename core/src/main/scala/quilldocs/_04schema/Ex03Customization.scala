@@ -1,7 +1,5 @@
 package quilldocs._04schema
 
-import scala.util.chaining._
-
 import hutil.stringformat._
 
 import io.getquill._
@@ -15,9 +13,9 @@ object Ex03Customization extends hutil.App {
 
   case class Product(id: Int, description: String, sku: Long)
 
-  s"$dash10 Customization $dash10".magenta.println
+  s"$dash10 Customization $dash10".magenta.println()
 
-  s"$dash5 Postgres $dash5".green.println
+  s"$dash5 Postgres $dash5".green.println()
 
   // The returning and returningGenerated methods also support arithmetic operations,
   // SQL UDFs and even entire queries. These are inserted directly into the SQL RETURNING clause.
@@ -71,7 +69,7 @@ object Ex03Customization extends hutil.App {
   // INSERT INTO Product (description,sku) VALUES ('My Product', 1011)
   // RETURNING id + 100, myUdf(id), (SELECT MAX(s.id) FROM Supplier s WHERE s.sku = sku)
 
-  s"$dash5 SQL Server $dash5".green.println
+  s"$dash5 SQL Server $dash5".green.println()
 
   {
     val ctx = new SqlMirrorContext(SQLServerDialect, SnakeCase)

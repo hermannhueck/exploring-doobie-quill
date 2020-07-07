@@ -2,7 +2,7 @@ val projectName        = "exploring-doobie-quill"
 val projectDescription = "Exploring Doobie and Quill for functional database access"
 val projectVersion     = "0.1.0"
 
-val scala213 = "2.13.2"
+val scala213 = "2.13.3"
 
 lazy val commonSettings =
   Seq(
@@ -13,7 +13,7 @@ lazy val commonSettings =
     Compile / console / scalacOptions := ScalacOptions.consoleScalacOptions,
     Test / console / scalacOptions := ScalacOptions.consoleScalacOptions,
     semanticdbEnabled := true,
-    semanticdbVersion := "4.3.10",                                                // scalafixSemanticdb.revision,
+    semanticdbVersion := "4.3.18",                                                // scalafixSemanticdb.revision,
     scalafixDependencies ++= Seq("com.github.liancheng" %% "organize-imports" % "0.3.0"),
     Test / parallelExecution := false,
     Test / testOptions += Tests.Argument(TestFrameworks.ScalaCheck, "-s", "100"), // -s = -minSuccessfulTests

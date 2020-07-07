@@ -26,7 +26,7 @@ object QuillIntegration extends hutil.App {
 
   import doobiedocs._
 
-  s"$dash10 Examples: Query $dash10".magenta.println
+  s"$dash10 Examples: Query $dash10".magenta.println()
 
   val q1 = quote { query[Country].filter(_.code == "GBR") }
   // q1: AnyRef with Quoted[EntityQuery[Country]]{def quoted: io.getquill.ast.Filter;def ast: io.getquill.ast.Filter;def id50738446(): Unit;val liftings: Object} = querySchema("Country").filter(x2 => x2.code == "GBR")
@@ -46,7 +46,7 @@ object QuillIntegration extends hutil.App {
   // )
   run(q1)
     .transact(xa)
-    .unsafeRunSync pipe println
+    .unsafeRunSync() pipe println
 
   // Stream in chunks of 16
   val res1: fs2.Stream[ConnectionIO, Country] = stream(q1, 16)
@@ -55,9 +55,9 @@ object QuillIntegration extends hutil.App {
     .compile
     .toList
     .transact(xa)
-    .unsafeRunSync pipe println
+    .unsafeRunSync() pipe println
 
-  s"$dash10 Examples: Update $dash10".magenta.println
+  s"$dash10 Examples: Update $dash10".magenta.println()
 
   val u1 = quote { query[Country].filter(_.name like "U%").update(_.name -> "foo") }
   // u1: AnyRef with Quoted[Update[Country]]{def quoted: io.getquill.ast.Update;def ast: io.getquill.ast.Update;def id1396135128(): Unit;val liftings: Object} = querySchema("Country").filter(x3 => infix"${x3.name} like ${"U%"}").update(x4 => x4.name -> "foo")
@@ -74,7 +74,7 @@ object QuillIntegration extends hutil.App {
   //   )
   // )
 
-  s"$dash10 Examples: Batch Update $dash10".magenta.println
+  s"$dash10 Examples: Batch Update $dash10".magenta.println()
 
   val u2 = quote {
     liftQuery(List("U%", "A%")).foreach { pat => query[Country].filter(_.name like pat).update(_.name -> "foo") }
@@ -99,7 +99,7 @@ object QuillIntegration extends hutil.App {
   //   cats.Monad$$Lambda$8144/773217938@4bb31c8d
   // )
 
-  s"$dash10 Examples: Update returning a single generated key $dash10".magenta.println
+  s"$dash10 Examples: Update returning a single generated key $dash10".magenta.println()
 
   // CREATE TABLE Foo (
   //   id    SERIAL,
@@ -130,7 +130,7 @@ object QuillIntegration extends hutil.App {
   //   )
   // )
 
-  s"$dash10 Examples: Batch Update returning multiple generated keys $dash10".magenta.println
+  s"$dash10 Examples: Batch Update returning multiple generated keys $dash10".magenta.println()
 
   val u4 = quote {
     liftQuery(List(Foo(0, "Joe"), Foo(0, "Bob")))

@@ -1,7 +1,5 @@
 package quilldocs._02compiletimequotations
 
-import scala.util.chaining._
-
 import hutil.stringformat._
 
 import io.getquill._
@@ -15,7 +13,7 @@ object CompileTimeQuotations extends hutil.App {
 
   case class Circle(radius: Float)
 
-  s"$dash10 Avoid type widening / type ascription $dash10".magenta.println
+  s"$dash10 Avoid type widening / type ascription $dash10".magenta.println()
 
   // Avoid type widening (Quoted[Query[Circle]]), or else the quotation will be dynamic.
   val q1: Quoted[Query[Circle]] = quote {
@@ -29,7 +27,7 @@ object CompileTimeQuotations extends hutil.App {
   }
   printAstAndStatement(q2.ast, ctx.run(q2).string) // Static query q2 (without type ascription)
 
-  s"$dash10 Inline Queries $dash10".magenta.println
+  s"$dash10 Inline Queries $dash10".magenta.println()
 
   printStatement(ctx.run(query[Circle].map(_.radius)).string)
   // SELECT r.radius FROM Circle r

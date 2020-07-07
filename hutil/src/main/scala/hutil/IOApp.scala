@@ -13,8 +13,8 @@ trait IOApp extends cats.effect.IOApp {
   val acquire: IO[Long] = {
     IO {
       val executionStart: Long = currentTime
-      runtimeInfo.blue.boxed.println
-      objectName(this).blue.boxed.println
+      runtimeInfo.blue.boxed.println()
+      objectName(this).blue.boxed.println()
       executionStart
     }
   }
@@ -22,10 +22,10 @@ trait IOApp extends cats.effect.IOApp {
   val release: Long => IO[Unit] = executionStart => {
     IO {
       val total = currentTime - executionStart
-      s"[total: $total ms]".blue.boxed.println
+      s"[total: $total ms]".blue.boxed.println()
     }
   }
-  val res = Resource.make(acquire)(release)
+  val res                       = Resource.make(acquire)(release)
 
   override def run(args: List[String]): IO[ExitCode] =
     Resource.make(acquire)(release).use(_ => ioRun(args))

@@ -17,7 +17,7 @@ object StatementFragments extends hutil.App {
   val y = xa.yolo
   import y._
 
-  s"$dash10 Composing SQL literals $dash10".magenta.println
+  s"$dash10 Composing SQL literals $dash10".magenta.println()
 
   val a = fr"select name from country"
   // a: Fragment = Fragment("select name from country ")
@@ -25,31 +25,31 @@ object StatementFragments extends hutil.App {
   // b: Fragment = Fragment("where code = 'USA' ")
   val c = a ++ b // concatenation by ++
   // c: Fragment = Fragment("select name from country where code = 'USA' ") // concatenation by ++
-  c.query[String].unique.quick.unsafeRunSync
+  c.query[String].unique.quick.unsafeRunSync()
   //   United States
 
-  s"$dash10 Fragments can capture arguments of any type $dash10".magenta.println
+  s"$dash10 Fragments can capture arguments of any type $dash10".magenta.println()
 
   def whereCode(s: String) = fr"where code = $s"
 
   val fra = whereCode("FRA")
   // fra: Fragment = Fragment("where code = ? ")
 
-  (fr"select name from country" ++ fra).query[String].quick.unsafeRunSync
+  (fr"select name from country" ++ fra).query[String].quick.unsafeRunSync()
   //   France
 
-  s"$dash10 Lift an arbitrary string value via Fragment.const $dash10".magenta.println
+  s"$dash10 Lift an arbitrary string value via Fragment.const $dash10".magenta.println()
 
   def count(table: String) =
     (fr"select count(*) from" ++ Fragment.const(table)).query[Int].unique
 
-  count("city").quick.unsafeRunSync
+  count("city").quick.unsafeRunSync()
   //   4079
 
   // Note that Fragment.const performs no escaping of passed strings.
   // Passing user-supplied data is an injection risk.
 
-  s"$dash10 Whitespace handling $dash10".magenta.println
+  s"$dash10 Whitespace handling $dash10".magenta.println()
 
   import cats.instances.list._  // .intercalate
   import cats.syntax.foldable._ // .intercalate
@@ -62,7 +62,7 @@ object StatementFragments extends hutil.App {
 
   // Note that the sql interpolator is simply an alias for fr0.
 
-  s"$dash10 The Fragments Module $dash10".magenta.println
+  s"$dash10 The Fragments Module $dash10".magenta.println()
 
   // Import some convenience combinators.
   import Fragments.{in, whereAndOpt}
@@ -90,10 +90,10 @@ object StatementFragments extends hutil.App {
     q.query[Info]
   }
 
-  println
+  println()
   select(None, None, Nil, 10) // no filters
     .check
-    .unsafeRunSync
+    .unsafeRunSync()
   //   Query0[Session.App.Info] defined at 08-Fragments.md:116
   //   SELECT name, code, population FROM country LIMIT ?
   //   ✓ SQL Compiles and TypeChecks
@@ -102,10 +102,10 @@ object StatementFragments extends hutil.App {
   //   ✓ C02 code       CHAR    (bpchar)  NOT NULL  →  String
   //   ✓ C03 population INTEGER (int4)    NOT NULL  →  Int // no filters
 
-  println
+  println()
   select(Some("U%"), None, Nil, 10) // one filter
     .check
-    .unsafeRunSync
+    .unsafeRunSync()
   //   Query0[Session.App.Info] defined at 08-Fragments.md:116
   //   SELECT name, code, population FROM country WHERE (name LIKE ? )
   //   LIMIT ?
@@ -116,10 +116,10 @@ object StatementFragments extends hutil.App {
   //   ✓ C02 code       CHAR    (bpchar)  NOT NULL  →  String
   //   ✓ C03 population INTEGER (int4)    NOT NULL  →  Int // one filter
 
-  println
+  println()
   select(Some("U%"), Some(12345), List("FRA", "GBR"), 10) // three filters
     .check
-    .unsafeRunSync
+    .unsafeRunSync()
   //   Query0[Session.App.Info] defined at 08-Fragments.md:116
   //   SELECT name, code, population FROM country WHERE (name LIKE ? ) AND
   //   (population > ? ) AND (code IN (?, ?) ) LIMIT ?

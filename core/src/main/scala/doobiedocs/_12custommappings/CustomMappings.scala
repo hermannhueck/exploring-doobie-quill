@@ -5,8 +5,6 @@ package doobiedocs._12custommappings
 
 import java.awt.Point
 
-import scala.util.chaining._
-
 import hutil.stringformat._
 
 import cats.Show
@@ -15,16 +13,14 @@ import cats.syntax.show._
 import cats.syntax.either._
 
 import doobie._
-import doobie.implicits._
 
 import io.circe._
 import io.circe.jawn._
-import io.circe.syntax._
 import org.postgresql.util.PGobject
 
 object CustomMappings extends hutil.App {
 
-  s"$dash10 When do I need a custom type mapping? $dash10".magenta.println
+  s"$dash10 When do I need a custom type mapping? $dash10".magenta.println()
 
   // The first case appears when you try to use an unmapped type as a statement parameter.
 
@@ -92,9 +88,9 @@ object CustomMappings extends hutil.App {
   // sql"SELECT message, detail FROM log".query[LogEntry]
   // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  s"$dash10 Single-Column Type Mappings $dash10".magenta.println
+  s"$dash10 Single-Column Type Mappings $dash10".magenta.println()
 
-  s"$dash5 Deriving Get and Put from Existing Instances $dash5".yellow.println
+  s"$dash5 Deriving Get and Put from Existing Instances $dash5".yellow.println()
 
   object NatModule {
 
@@ -132,7 +128,7 @@ object CustomMappings extends hutil.App {
   implicit val natGet2: Get[Nat] = Get[Int].tmap(fromInt)
   implicit val natPut2: Put[Nat] = Put[Int].tcontramap(toInt)
 
-  s"$dash5 Deriving Get and Put from Meta $dash5".yellow.println
+  s"$dash5 Deriving Get and Put from Meta $dash5".yellow.println()
 
   // Bidirectional schema mapping for Nat, in terms of Int
   implicit val natMeta: Meta[Nat] = Meta[Int].imap(fromInt)(toInt)
@@ -140,7 +136,7 @@ object CustomMappings extends hutil.App {
   // Prefer .timap when possible.
   implicit val natMeta2: Meta[Nat] = Meta[Int].timap(fromInt)(toInt)
 
-  s"$dash5 Defining Get and Put for Exotic Types $dash5".yellow.println
+  s"$dash5 Defining Get and Put for Exotic Types $dash5".yellow.println()
 
   // In this example we will create a mapping for PostgreSQL’s json type,
   // which is not part of the JDBC specification. On the Scala side we will use
@@ -190,9 +186,9 @@ object CustomMappings extends hutil.App {
       .other[PGobject]("json")
       .timap[Json](pgObject2Json)(json2PGObject)
 
-  s"$dash10 Column Vector Mappings $dash10".magenta.println
+  s"$dash10 Column Vector Mappings $dash10".magenta.println()
 
-  s"$dash5 Deriving Read and Write from Existing Instances $dash5".yellow.println
+  s"$dash5 Deriving Read and Write from Existing Instances $dash5".yellow.println()
 
   // Consider the Point class from Java AWT, which is logically a pair of Ints
   // but is not a case class and is thus not eligable for automatic derivation

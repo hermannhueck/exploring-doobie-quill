@@ -1,7 +1,5 @@
 package quilldocs._05queries
 
-import scala.util.chaining._
-
 import hutil.stringformat._
 
 import io.getquill._
@@ -13,7 +11,7 @@ object Queries extends hutil.App {
   val ctx = new SqlMirrorContext(PostgresDialect, SnakeCase)
   import ctx._
 
-  s"$dash10 for-comprehensions $dash10".magenta.println
+  s"$dash10 for-comprehensions $dash10".magenta.println()
 
   // The overall abstraction of quill queries uses database tables as if they were in-memory collections.
   // Scala for-comprehensions provide syntactic sugar to deal with these kinds of monadic operations:

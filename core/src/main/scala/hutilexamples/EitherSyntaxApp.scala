@@ -16,7 +16,7 @@ object EitherSyntaxApp extends hutil.App {
     .leftMap(_.toLowerCase)
     .ensuring(_ == Left("error")) pipe println
 
-  println
+  println()
 
   Right(Right(42)).flatten pipe println
   Right(Left("error")).flatten pipe println

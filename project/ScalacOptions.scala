@@ -14,8 +14,9 @@ object ScalacOptions {
     "-opt-inline-from:<source>",                 // ... from source files
     "-Xsource:2.13",                             // Treat compiler input as Scala source for scala-2.13
     "-Xcheckinit",                               // wrap field accessors to throw an exception on uninitialized access
+    "-Xasync:true",                              // Enable the async phase for scala.async.Async.{async,await}. [false]
     "-Xlint:adapted-args",                       // An argument list was modified to match the receiver.
-    "-Xlint:byname-implicit",                    // Block adapted by implicit with by-name parameter.
+    // "-Xlint:byname-implicit",                    // Block adapted by implicit with by-name parameter.
     "-Xlint:constant",                           // Evaluation of a constant arithmetic expression resulted in an error.
     "-Xlint:delayedinit-select",                 // Selecting member of DelayedInit.
     "-Xlint:deprecation",                        // Enable -deprecation and also check @deprecated annotations.
@@ -27,7 +28,6 @@ object ScalacOptions {
     "-Xlint:infer-any",                          // A type argument was inferred as Any.
     "-Xlint:missing-interpolator",               // A string literal appears to be missing an interpolator id.
     "-Xlint:nonlocal-return",                    // A return statement used an exception for flow control.
-    "-Xlint:nullary-override",                   // Non-nullary `def f()` overrides nullary `def f`.
     "-Xlint:nullary-unit",                       // `def f: Unit` looks like an accessor; add parens to look side-effecting.
     "-Xlint:option-implicit",                    // Option.apply used an implicit view.
     "-Xlint:package-object-classes",             // Class or object defined in package object.
@@ -39,11 +39,11 @@ object ScalacOptions {
     "-Xlint:type-parameter-shadow",              // A local type parameter shadows a type already in scope.
     "-Xlint:unit-special",                       // Warn for specialization of Unit in parameter position.
     "-Xlint:valpattern",                         // Enable pattern checks in val definitions.
+    "-Xlint:implicit-recursion",                 // Warn when an implicit resolves to an enclosing definition.
     "-Werror",                                   // Fail the compilation if there are any warnings. // previously: -Xfatal-warnings
     "-Wdead-code",                               // Warn when dead code is identified.
     "-Wextra-implicit",                          // Warn when more than one implicit parameter section is defined.
     "-Wnumeric-widen",                           // Warn when numerics are widened.
-    "-Wself-implicit",                           // Warn when an implicit resolves to an enclosing self-definition.
     "-Wunused:imports",                          // Warn if an import selector is not referenced.
     "-Wunused:patvars",                          // Warn if a variable bound in a pattern is unused.
     "-Wunused:privates",                         // Warn if a private member is unused.
@@ -59,7 +59,8 @@ object ScalacOptions {
     "-Ycache-plugin-class-loader:last-modified", // Enables caching of classloaders for compiler plugins
     "-Ycache-macro-class-loader:last-modified",  // and macro definitions. This can lead to performance improvements.
     "-Ymacro-annotations",                       // Enable support for macro annotations, formerly in macro paradise.
-    "-Wconf:cat=deprecation:ws,cat=feature:ws,cat=optimizer:ws,any:warning-verbose"
+    "-Wconf:any:warning-verbose"
+    // "-Wconf:cat=deprecation:ws,cat=feature:ws,cat=optimizer:ws,any:warning-verbose"
     // "-Xlint:unused",                          // Enable -Wunused:imports,privates,locals,implicits,nowarn.
     // "-Woctal-literal",                        // Warn on obsolete octal syntax.
     // "-Wmacros:<mode>",                        // Enable lint warnings on macro expansions. Default: `before`, `help` to list choices.

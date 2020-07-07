@@ -6,7 +6,6 @@ import scala.util.chaining._
 import cats.effect.IO
 
 import doobie._
-import doobie.h2._
 import doobie.implicits._
 
 object GettingStartedUsingH2 extends hutil.App {
@@ -60,5 +59,5 @@ object GettingStartedUsingH2 extends hutil.App {
 
   program
     .transact(xa)
-    .unsafeRunSync pipe println
+    .unsafeRunSync() pipe println
 }

@@ -1,7 +1,5 @@
 package quilldocs._04schema
 
-import scala.util.chaining._
-
 import hutil.stringformat._
 
 import io.getquill._
@@ -13,9 +11,9 @@ object Ex02DBGeneratedValues extends hutil.App {
   val ctx = new SqlMirrorContext(PostgresDialect, SnakeCase)
   import ctx._
 
-  s"$dash10 Database-generated values $dash10".magenta.println
+  s"$dash10 Database-generated values $dash10".magenta.println()
 
-  s"$dash5 returnGenerated $dash5".green.println
+  s"$dash5 returnGenerated $dash5".green.println()
 
   // Database generated values can be returned from an insert query by using .returningGenerated.
   // These properties will also be excluded from the insertion since they are database generated.
@@ -44,7 +42,7 @@ object Ex02DBGeneratedValues extends hutil.App {
   printAstAndStatement(q4.ast, ctx.run(q4).string)
   // INSERT INTO Product (description) VALUES (?) RETURNING id, sku -- NOTE that 'id' and 'sku' are not being inserted.
 
-  s"$dash5 returning $dash5".green.println
+  s"$dash5 returning $dash5".green.println()
 
   // In certain situations, we might want to return fields that are not auto generated as well.
   // In this case we do not want the fields to be automatically excluded from the insertion.
@@ -81,7 +79,7 @@ object Ex02DBGeneratedValues extends hutil.App {
   printAstAndStatement(q7.ast, ctx.run(q7).string)
   // INSERT INTO Product (description, sku) VALUES (?, ?) RETURNING id, description
 
-  s"$dash5 update returning $dash5".green.println
+  s"$dash5 update returning $dash5".green.println()
 
   // returning can also be used after update:
 

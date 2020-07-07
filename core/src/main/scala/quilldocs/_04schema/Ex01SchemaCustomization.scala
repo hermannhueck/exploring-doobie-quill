@@ -1,7 +1,5 @@
 package quilldocs._04schema
 
-import scala.util.chaining._
-
 import hutil.stringformat._
 
 import io.getquill._
@@ -16,7 +14,7 @@ object Ex01SchemaCustomization extends hutil.App {
   case class Circle(radius: Float)
   case class Rectangle(length: Int, width: Int)
 
-  s"$dash10 Schema $dash10".magenta.println
+  s"$dash10 Schema $dash10".magenta.println()
 
   // The database schema is represented by case classes. By default, quill uses
   // the class and field names as the database identifiers:
@@ -27,7 +25,7 @@ object Ex01SchemaCustomization extends hutil.App {
   printAstAndStatement(q1.ast, ctx.run(q1).string)
   // SELECT c.radius FROM Circle c WHERE c.radius > 1
 
-  s"$dash10 Schema customization $dash10".magenta.println
+  s"$dash10 Schema customization $dash10".magenta.println()
 
   val circles = quote {
     querySchema[Circle]("circle_table", _.radius -> "radius_column")

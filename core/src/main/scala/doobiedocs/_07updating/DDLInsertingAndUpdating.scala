@@ -20,7 +20,7 @@ object DDLInsertingAndUpdating extends hutil.App {
   val y = xa.yolo
   import y._
 
-  s"$dash10 Checking a Query (check prints errors) $dash10".magenta.println
+  s"$dash10 Checking a Query (check prints errors) $dash10".magenta.println()
 
   val drop =
     sql"""
@@ -39,11 +39,11 @@ object DDLInsertingAndUpdating extends hutil.App {
   (drop, create)
     .mapN(_ + _)
     .transact(xa)
-    .unsafeRunSync
+    .unsafeRunSync()
     .pipe(count => println(s"Table PERSON dropped and recreated. Rows updated: $count"))
   // res0: Int = 0
 
-  s"$dash10 Inserting $dash10".magenta.println
+  s"$dash10 Inserting $dash10".magenta.println()
 
   def insert1(name: String, age: Option[Short]): Update0 =
     sql"insert into person (name, age) values ($name, $age)".update
@@ -51,41 +51,41 @@ object DDLInsertingAndUpdating extends hutil.App {
   insert1("Alice", Some(12))
     .run
     .transact(xa)
-    .unsafeRunSync
+    .unsafeRunSync()
     .pipe(count => println(s"Rows updated: $count"))
   // res1: Int = 1
-  insert1("Bob", None).quick.unsafeRunSync // switch to YOLO mode
+  insert1("Bob", None).quick.unsafeRunSync() // switch to YOLO mode
   //   1 row(s) update
 
-  println
+  println()
 
   case class Person(id: Long, name: String, age: Option[Short])
 
   sql"select id, name, age from person"
     .query[Person]
     .quick
-    .unsafeRunSync
+    .unsafeRunSync()
   //   Person(1,Alice,Some(12))
   //   Person(2,Bob,None)
 
-  s"$dash10 Updating $dash10".magenta.println
+  s"$dash10 Updating $dash10".magenta.println()
 
   sql"update person set age = 15 where name = 'Alice'"
     .update
     .quick
-    .unsafeRunSync
+    .unsafeRunSync()
   //   1 row(s) updated
 
-  println
+  println()
 
   sql"select id, name, age from person"
     .query[Person]
     .quick
-    .unsafeRunSync
+    .unsafeRunSync()
   //   Person(2,Bob,None)
   //   Person(1,Alice,Some(15))
 
-  s"$dash10 Retrieving Results $dash10".magenta.println
+  s"$dash10 Retrieving Results $dash10".magenta.println()
 
   def insert2(name: String, age: Option[Short]): ConnectionIO[Person] =
     for {
@@ -96,10 +96,10 @@ object DDLInsertingAndUpdating extends hutil.App {
 
   insert2("Jimmy", Some(42))
     .quick
-    .unsafeRunSync
+    .unsafeRunSync()
   //   Person(3,Jimmy,Some(42))
 
-  s"$dash10 withUniqueGeneratedKeys (H2 allows to return only the inserted id) $dash10".magenta.println
+  s"$dash10 withUniqueGeneratedKeys (H2 allows to return only the inserted id) $dash10".magenta.println()
 
   // Some database (like H2) allow you to return [only] the inserted id, allowing the above operation
   // to be reduced to two statements (see below for an explanation of withUniqueGeneratedKeys).
@@ -107,19 +107,19 @@ object DDLInsertingAndUpdating extends hutil.App {
   def insert2_H2(name: String, age: Option[Short]): ConnectionIO[Person] =
     for {
       id <- sql"insert into person (name, age) values ($name, $age)"
-             .update
-             .withUniqueGeneratedKeys[Int]("id")
-      p <- sql"select id, name, age from person where id = $id"
-            .query[Person]
-            .unique
+              .update
+              .withUniqueGeneratedKeys[Int]("id")
+      p  <- sql"select id, name, age from person where id = $id"
+              .query[Person]
+              .unique
     } yield p
 
-  insert2_H2("Ramone", Some(42)).quick.unsafeRunSync
+  insert2_H2("Ramone", Some(42)).quick.unsafeRunSync()
   //   Person(4,Ramone,Some(42))
 
   s"$dash10 withUniqueGeneratedKeys (PostgreSQL - and other DBMS - return the specified columns in one shot) $dash10"
     .magenta
-    .println
+    .println()
 
   // Other databases (including PostgreSQL) provide a way to do this in one shot
   // by returning multiple specified columns from the inserted row.
@@ -132,10 +132,10 @@ object DDLInsertingAndUpdating extends hutil.App {
 
   insert3("Elvis", None)
     .quick
-    .unsafeRunSync
+    .unsafeRunSync()
   //   Person(5,Elvis,None)
 
-  s"$dash10 withUniqueGeneratedKeys with updates $dash10".magenta.println
+  s"$dash10 withUniqueGeneratedKeys with updates $dash10".magenta.println()
 
   val up = {
     sql"update person set age = age + 1 where age is not null"
@@ -145,17 +145,17 @@ object DDLInsertingAndUpdating extends hutil.App {
 
   // Running this process updates all rows with a non-NULL age and returns them.
 
-  up.quick.unsafeRunSync
+  up.quick.unsafeRunSync()
   //   Person(1,Alice,Some(16))
   //   Person(3,Jimmy,Some(43))
   //   Person(4,Ramone,Some(43))
-  println
-  up.quick.unsafeRunSync // and again!
+  println()
+  up.quick.unsafeRunSync() // and again!
   //   Person(1,Alice,Some(17))
   //   Person(3,Jimmy,Some(44))
   //   Person(4,Ramone,Some(44))
 
-  s"$dash10 Batch Updates $dash10".magenta.println
+  s"$dash10 Batch Updates $dash10".magenta.println()
 
   // Given some values ...
   val a = 1; val b = "foo"
@@ -178,7 +178,7 @@ object DDLInsertingAndUpdating extends hutil.App {
 
   insertMany(data)
     .quick
-    .unsafeRunSync
+    .unsafeRunSync()
   //   2
 
   import fs2.Stream
@@ -188,29 +188,29 @@ object DDLInsertingAndUpdating extends hutil.App {
     Update[PersonInfo](sql).updateManyWithGeneratedKeys[Person]("id", "name", "age")(ps)
   }
 
-  s"$dash10 Batch Updates (using updateManyWithGeneratedKeys) $dash10".magenta.println
+  s"$dash10 Batch Updates (using updateManyWithGeneratedKeys) $dash10".magenta.println()
 
   // Some rows to insert
   val data2 = List[PersonInfo](("Banjo", Some(39)), ("Skeeter", None), ("Jim-Bob", Some(12)))
 
   insertMany2(data2)
     .quick
-    .unsafeRunSync
+    .unsafeRunSync()
   //   Person(8,Banjo,Some(39))
   //   Person(9,Skeeter,None)
   //   Person(10,Jim-Bob,Some(12))
 
-  s"$dash10 Deleting $dash10".magenta.println
+  s"$dash10 Deleting $dash10".magenta.println()
 
   sql"delete from person"
     .update
     .run
     .transact(xa)
-    .unsafeRunSync
+    .unsafeRunSync()
     .pipe(count => println(s"Rows deleted: $count"))
 
   sql"delete from person" // with yolo
     .update
     .quick
-    .unsafeRunSync
+    .unsafeRunSync()
 }

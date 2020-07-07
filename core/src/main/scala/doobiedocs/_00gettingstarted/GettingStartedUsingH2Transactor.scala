@@ -13,7 +13,7 @@ object GettingStartedUsingH2Transactor extends hutil.App {
 
   implicit val cs = IO.contextShift(ExecutionContext.global)
 
-  val ec = ExecutionContext.global
+  val ec                                           = ExecutionContext.global
   val xaH2Resource: Resource[IO, H2Transactor[IO]] = H2Transactor.newH2Transactor[IO](
     "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1", // connect URL
     "sa",                                 // username
@@ -49,15 +49,17 @@ object GettingStartedUsingH2Transactor extends hutil.App {
       .update
       .run
 
-  xaH2Resource.use { xa =>
-    (for {
-      _      <- dropTable
-      _      <- createTable
-      _      <- insert(Country("FRA", "France", 67000000L))
-      _      <- insert(Country("Ger", "Germany", 83000000L))
-      result <- find("France")
-      _      <- deleteAll
-      _      <- dropTable
-    } yield result).transact(xa)
-  }.unsafeRunSync pipe println
+  xaH2Resource
+    .use { xa =>
+      (for {
+        _      <- dropTable
+        _      <- createTable
+        _      <- insert(Country("FRA", "France", 67000000L))
+        _      <- insert(Country("Ger", "Germany", 83000000L))
+        result <- find("France")
+        _      <- deleteAll
+        _      <- dropTable
+      } yield result).transact(xa)
+    }
+    .unsafeRunSync() pipe println
 }

@@ -20,9 +20,9 @@ object ErrorHandling extends hutil.App {
   val y = xa.yolo
   import y._
 
-  s"$dash10 MonadError and Derived Combinators $dash10".magenta.println
+  s"$dash10 MonadError and Derived Combinators $dash10".magenta.println()
 
-  val p = 42.pure[ConnectionIO]
+  val p                                          = 42.pure[ConnectionIO]
   // p: ConnectionIO[Int] = Pure(42)
   val res0: ConnectionIO[Either[Throwable, Int]] = p.attempt
   res0 pipe println
@@ -33,7 +33,7 @@ object ErrorHandling extends hutil.App {
   //   )
   // )
 
-  s"$dash10 Example: Unique Constraint Violation $dash10".magenta.println
+  s"$dash10 Example: Unique Constraint Violation $dash10".magenta.println()
 
   import cats.syntax.traverse._
   import cats.instances.list._
@@ -46,7 +46,7 @@ object ErrorHandling extends hutil.App {
           name  VARCHAR NOT NULL UNIQUE
         )"""
   ).traverse(frag => frag.update.quick)
-  io.void.unsafeRunSync
+  io.void.unsafeRunSync()
   //   0 row(s) updated
   //   0 row(s) updated
 
@@ -58,12 +58,12 @@ object ErrorHandling extends hutil.App {
       .withUniqueGeneratedKeys("id", "name")
 
   // The first insert will work.
-  insert("bob").quick.unsafeRunSync
+  insert("bob").quick.unsafeRunSync()
   //   Person(1,bob)
 
   // The second will fail with a unique constraint violation.
   try {
-    insert("bob").quick.unsafeRunSync
+    insert("bob").quick.unsafeRunSync()
   } catch {
     case e: java.sql.SQLException =>
       println(e.getMessage)
@@ -83,9 +83,9 @@ object ErrorHandling extends hutil.App {
   // Given this definition we can safely attempt to insert duplicate records
   // and get a helpful error message rather than an exception.
 
-  safeInsert("bob").quick.unsafeRunSync
+  safeInsert("bob").quick.unsafeRunSync()
   //   Left(Oops!)
 
-  safeInsert("steve").quick.unsafeRunSync
+  safeInsert("steve").quick.unsafeRunSync()
   //   Right(Person(4,steve))
 }

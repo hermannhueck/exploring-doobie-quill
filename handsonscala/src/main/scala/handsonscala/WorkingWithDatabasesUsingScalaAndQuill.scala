@@ -33,7 +33,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
 
   import model._
 
-  s"$dash10 Basic Queries $dash10".magenta.println
+  s"$dash10 Basic Queries $dash10".magenta.println()
 
   // basic query on City
   val qCities            = quote {
@@ -42,7 +42,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities.ast, ctx.translate(qCities))
   val cities: List[City] = ctx.run(qCities)
   cities foreach println
-  println
+  println()
 
   // basic query on Country
   val qCountries               = quote {
@@ -51,7 +51,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities.ast, ctx.translate(qCountries))
   val countries: List[Country] = ctx.run(qCountries)
   countries foreach println
-  println
+  println()
 
   // basic query on CountryLanguage
   val qLanguages                      = quote {
@@ -60,9 +60,9 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qLanguages.ast, ctx.translate(qLanguages))
   val language: List[CountryLanguage] = ctx.run(qLanguages)
   language foreach println
-  println
+  println()
 
-  s"$dash10 Filtering $dash10".magenta.println
+  s"$dash10 Filtering $dash10".magenta.println()
 
   // basic query on City
   val qCities2            = quote {
@@ -71,7 +71,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities2.ast, ctx.translate(qCities2))
   val cities2: List[City] = ctx.run(qCities2)
   cities2 foreach println
-  println
+  println()
 
   val qCities3            = quote {
     query[City].filter(_.id == 3208)
@@ -79,7 +79,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities3.ast, ctx.translate(qCities3))
   val cities3: List[City] = ctx.run(qCities3)
   cities3 foreach println
-  println
+  println()
 
   val qCities4            = quote {
     query[City].filter(_.population > 9000000)
@@ -87,7 +87,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities4.ast, ctx.translate(qCities4))
   val cities4: List[City] = ctx.run(qCities4)
   cities4 foreach println
-  println
+  println()
 
   val qCities5            = quote {
     query[City].filter(c => c.population > 5000000 && c.countryCode == "CHN")
@@ -95,7 +95,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities5.ast, ctx.translate(qCities5))
   val cities5: List[City] = ctx.run(qCities5)
   cities5 foreach println
-  println
+  println()
 
   val qCities6            = quote {
     query[City].filter(c => c.population > 5000000).filter(_.countryCode == "CHN")
@@ -103,9 +103,9 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities6.ast, ctx.translate(qCities6))
   val cities6: List[City] = ctx.run(qCities6)
   cities6 foreach println
-  println
+  println()
 
-  s"$dash10 Lifting $dash10".magenta.println
+  s"$dash10 Lifting $dash10".magenta.println()
 
   def findCityById(cityId: Int) =
     quote {
@@ -120,7 +120,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities8.ast, ctx.translate(qCities8))
   val cities8: List[City] = ctx.run(qCities8)
   cities8 foreach println
-  println
+  println()
 
   // val qCities9 = quote {
   //   query[City].filter(_.name.length == 1)
@@ -134,7 +134,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   // compile error
   // [error]       Tree 'x$6.name.substring(0, 1)' can't be parsed to 'Ast'
 
-  s"$dash10 Mapping $dash10".magenta.println
+  s"$dash10 Mapping $dash10".magenta.println()
 
   val qCountries2                        = quote {
     query[Country].map(c => (c.name, c.continent)).take(5)
@@ -142,7 +142,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCountries2.ast, ctx.translate(qCountries2))
   val countries2: List[(String, String)] = ctx.run(qCountries2)
   countries2 foreach println
-  println
+  println()
 
   val qCountries3                             = quote {
     query[Country].map(c => (c.name, c.continent, c.population)).take(5)
@@ -150,7 +150,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCountries3.ast, ctx.translate(qCountries3))
   val countries3: List[(String, String, Int)] = ctx.run(qCountries3)
   countries3 foreach println
-  println
+  println()
 
   def findCityNameById(cityId: Int) =
     quote {
@@ -165,9 +165,9 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities12.ast, ctx.translate(qCities12))
   val cities12: List[String] = ctx.run(qCities12)
   cities12 foreach println
-  println
+  println()
 
-  s"$dash10 Joins $dash10".magenta.println
+  s"$dash10 Joins $dash10".magenta.println()
 
   // applicative join
   // convenient for joining just 2 tables
@@ -182,7 +182,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities13.ast, ctx.translate(qCities13))
   val cities13: List[String] = ctx.run(qCities13)
   cities13 foreach println
-  println
+  println()
 
   // implicit join
   // only supports inner joins
@@ -196,7 +196,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities13a.ast, ctx.translate(qCities13a))
   val cities13a: List[String] = ctx.run(qCities13a)
   cities13a foreach println
-  println
+  println()
 
   // flat join
   // allows for-comprehensions and also supports left, right and full joins
@@ -209,9 +209,9 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities13b.ast, ctx.translate(qCities13b))
   val cities13b: List[String] = ctx.run(qCities13b)
   cities13b foreach println
-  println
+  println()
 
-  s"$dash10 Inserts $dash10".magenta.println
+  s"$dash10 Inserts $dash10".magenta.println()
 
   val delete        = quote {
     query[City].filter(_.population == 0).delete
@@ -234,7 +234,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   val cities14: List[City] = ctx.run(qCities14)
   cities14 foreach println
 
-  s"$dash10 Batch Inserts with 'liftQuery' and 'foreach' $dash10".magenta.println
+  s"$dash10 Batch Inserts with 'liftQuery' and 'foreach' $dash10".magenta.println()
 
   val insertBatch               = quote {
     liftQuery(
@@ -256,9 +256,9 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities15.ast, ctx.translate(qCities15))
   val cities15: List[City] = ctx.run(qCities15)
   cities15 foreach println
-  println
+  println()
 
-  s"$dash10 Updates $dash10".magenta.println
+  s"$dash10 Updates $dash10".magenta.println()
 
   val update        = quote {
     query[City].filter(_.id == 10000).update(City(10000, "testham", "TST", "Test County", 0))
@@ -273,7 +273,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities16.ast, ctx.translate(qCities16))
   val cities16: List[City] = ctx.run(qCities16)
   cities16 foreach println
-  println
+  println()
 
   val update2        = quote {
     query[City].filter(_.id == 10000).update(_.name -> "testford")
@@ -288,7 +288,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities17.ast, ctx.translate(qCities17))
   val cities17: List[City] = ctx.run(qCities17)
   cities17 foreach println
-  println
+  println()
 
   val update3        = quote {
     query[City].filter(_.district == "Test County").update(_.district -> "Test Borough")
@@ -303,9 +303,9 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities18.ast, ctx.translate(qCities18))
   val cities18: List[City] = ctx.run(qCities18)
   cities18 foreach println
-  println
+  println()
 
-  s"$dash10 Transactions $dash10".magenta.println
+  s"$dash10 Transactions $dash10".magenta.println()
 
   val update4 = quote {
     query[City].filter(_.district == "Test Borough").update(_.district -> "Test County")
@@ -328,7 +328,7 @@ object WorkingWithDatabasesUsingScalaAndQuill extends hutil.App {
   printAstAndStatement(qCities19.ast, ctx.translate(qCities19))
   val cities19: List[City] = ctx.run(qCities19)
   cities19 foreach println
-  println
+  println()
 
   val delete2        = quote {
     query[City].filter(_.population == 0).delete

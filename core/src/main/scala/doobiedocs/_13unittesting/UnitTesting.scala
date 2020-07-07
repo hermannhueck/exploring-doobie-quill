@@ -5,40 +5,34 @@ package doobiedocs._13unittesting
 
 import hutil.stringformat._
 
-import doobie._
 import doobie.implicits._
 
 object UnitTesting extends hutil.App {
-
-  import doobiedocs._ // imports Transactor xa + implicit ContextShift cs
-
-  val y = xa.yolo
-  import y._
 
   case class Country(code: Int, name: String, pop: Int, gnp: Double)
 
   lazy val trivial =
     sql"""|
-          |select 42, 'foo'::varchar
-          |"""
+         |select 42, 'foo'::varchar
+         |"""
       .stripMargin
       .query[(Int, String)]
 
   def biggerThan(minPop: Short) =
     sql"""|
-          |select code, name, population, gnp, indepyear
-          |from country
-          |where population > $minPop
-          |"""
+         |select code, name, population, gnp, indepyear
+         |from country
+         |where population > $minPop
+         |"""
       .stripMargin
       .query[Country]
 
   def update(oldName: String, newName: String) =
     sql"""|
-          |update country set name = $newName where name = $oldName
-          |""".stripMargin.update
+         |update country set name = $newName where name = $oldName
+         |""".stripMargin.update
 
-  s"$dash10 The Specs2 Package $dash10".magenta.println
+  s"$dash10 The Specs2 Package $dash10".magenta.println()
 
   // The doobie-specs2 add-on provides a mix-in trait that we can add to a Specification
   // to allow for typechecking of queries, interpreted as a set of specifications.
@@ -64,7 +58,7 @@ object UnitTesting extends hutil.App {
   // Run a test programmatically. Usually you would do this from sbt, bloop, etc.
   runTest(new AnalysisTestWithSpecs2)(Arguments(report = Report(_color = Some(false))))
 
-  s"$dash10 The ScalaTest Package $dash10".magenta.println
+  s"$dash10 The ScalaTest Package $dash10".magenta.println()
 
   // The doobie-scalatest add-on provides a mix-in trait that we can add to any Assertions implementation
   // (like FunSuite) much like the Specs2 package above.

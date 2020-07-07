@@ -1,9 +1,5 @@
 package quilldocs._06joins
 
-import scala.util.chaining._
-
-import hutil.stringformat._
-
 import io.getquill._
 
 object ImplicitJoins extends hutil.App {

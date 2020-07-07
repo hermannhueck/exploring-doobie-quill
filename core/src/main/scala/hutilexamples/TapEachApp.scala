@@ -11,10 +11,10 @@ object TapEachApp extends hutil.App {
   val doubledAndSquared: List[Int] =
     List(1, 2, 3)
       .tapEach(x => println(s"value: $x"))
-      .tap(_ => println)
+      .tap(_ => println())
       .map(x => x * 2)
       .tapEach(x => println(s"doubled: $x"))
-      .tap(_ => println)
+      .tap(_ => println())
       .map(x => x * x)
       .tapEach(x => println(s"squared: $x"))
 }

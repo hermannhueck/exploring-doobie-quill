@@ -12,10 +12,7 @@ object Logging extends hutil.App {
 
   import doobiedocs._ // imports Transactor xa + implicit ContextShift cs
 
-  val y = xa.yolo
-  import y._
-
-  s"$dash10 Basic Statement Logging $dash10".magenta.println
+  s"$dash10 Basic Statement Logging $dash10".magenta.println()
 
   def byName(pat: String) = {
     sql"select name, code from country where name like $pat"
@@ -24,8 +21,8 @@ object Logging extends hutil.App {
       .transact(xa)
   }
 
-  s"$dash5 Log Output $dash5".green.println
-  val res0 = byName("U%").unsafeRunSync
+  s"$dash5 Log Output $dash5".green.println()
+  val res0 = byName("U%").unsafeRunSync()
   // res0: List[(String, String)] = List(
   //   ("United Arab Emirates", "ARE"),
   //   ("United Kingdom", "GBR"),
@@ -36,10 +33,10 @@ object Logging extends hutil.App {
   //   ("United States", "USA"),
   //   ("United States Minor Outlying Islands", "UMI")
   // )
-  s"$dash5 Output $dash5".green.println
+  s"$dash5 Output $dash5".green.println()
   res0 foreach println
 
-  s"$dash10 Implicit Logging $dash10".magenta.println
+  s"$dash10 Implicit Logging $dash10".magenta.println()
 
   implicit val han = LogHandler.jdkLogHandler
 
@@ -50,12 +47,12 @@ object Logging extends hutil.App {
       .transact(xa)
   }
 
-  s"$dash5 Log Output $dash5".green.println
-  val res1 = byName("U%").unsafeRunSync
-  s"$dash5 Output $dash5".green.println
+  s"$dash5 Log Output $dash5".green.println()
+  val res1 = byName("U%").unsafeRunSync()
+  s"$dash5 Output $dash5".green.println()
   res1 foreach println
 
-  s"$dash10 Writing Your Own LogHandler $dash10".magenta.println
+  s"$dash10 Writing Your Own LogHandler $dash10".magenta.println()
 
   // case class LogHandler(unsafeRun: LogEvent => Unit)
 
@@ -73,7 +70,7 @@ object Logging extends hutil.App {
     .queryWithLogHandler[Int](trivial)
     .unique
     .transact(xa)
-    .unsafeRunSync
+    .unsafeRunSync()
   // *** Success(select 42,List(),480259 nanoseconds,124281 nanoseconds)
   // res1: Int = 42
 

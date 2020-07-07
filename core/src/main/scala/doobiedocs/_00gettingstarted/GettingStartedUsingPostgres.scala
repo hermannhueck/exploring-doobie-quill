@@ -28,5 +28,5 @@ object GettingStartedUsingPostgres extends hutil.App {
 
   find("France")
     .transact(xa)
-    .unsafeRunSync pipe println
+    .unsafeRunSync() pipe println
 }

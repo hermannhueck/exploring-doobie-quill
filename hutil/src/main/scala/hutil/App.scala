@@ -6,7 +6,7 @@ import scala.collection.mutable.ListBuffer
 import hutil.classname._
 import hutil.stringformat._
 
-@scala.annotation.nowarn("cat=deprecation&since=2.11.0&msg=trait DelayedInit:ws")
+@annotation.nowarn("cat=deprecation")
 trait App extends DelayedInit {
 
   final val executionStart: Long = currentTime

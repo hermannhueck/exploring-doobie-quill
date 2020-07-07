@@ -1,13 +1,12 @@
 package hutilexamples
 
 import cats.effect.{ExitCode, IO}
-import cats.syntax.functor._
 
 import fs2.Stream
 
 object Fs2Factorials extends hutil.IOApp {
 
-  val ints: Stream[IO, Int] = Stream.range(1, 31).covary[IO]
+  val ints: Stream[IO, Int]          = Stream.range(1, 31).covary[IO]
   val factorials: Stream[IO, BigInt] =
     ints.scan(BigInt(1))((acc, next) => acc * next)
 

@@ -22,8 +22,8 @@ object GettingStartedUsingH2WithFragments extends hutil.App {
   case class Country(code: String, name: String, population: Long)
 
   object Country {
-    val dummy  = Country("DMY", "Dummy", 0L)
-    val prefix = dummy.productPrefix
+    val dummy                     = Country("DMY", "Dummy", 0L)
+    val prefix                    = dummy.productPrefix
     val columnNames: List[String] =
       dummy.productElementNames.toList
   }
@@ -77,5 +77,5 @@ object GettingStartedUsingH2WithFragments extends hutil.App {
 
   program
     .transact(xa)
-    .unsafeRunSync pipe println
+    .unsafeRunSync() pipe println
 }
